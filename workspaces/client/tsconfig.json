@@ -1,10 +1,19 @@
+// {
+//   "compilerOptions": {
+//     "allowSyntheticDefaultImports": true,
+//     "esModuleInterop": true,
+//     "moduleResolution": "node",
+//     "target": "esnext",
+//     "module": "es6",
+//     "sourceMap": true,
+//     "skipLibCheck": true,
+//     "outDir": "./dist/"
+//   }
+// }
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "target": "es2015",
-    "module": "es6",
+    "target": "es6",
+    "module": "commonjs",
     "sourceMap": true,
     "outDir": "./dist/"
   }
