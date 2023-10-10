@@ -1,4 +1,4 @@
-import { Actor, Color, Engine, vec } from "excalibur";
+import { Actor, Color, Engine, Vector } from "excalibur";
 
 import { DirectionQueue } from "../../classes/DirectionQueue";
 import { EDirection } from "../../constants";
@@ -10,9 +10,9 @@ import { Resources } from "../../resources";
 type onInitialize = Actor["onInitialize"];
 
 export class Player extends Actor {
-  constructor() {
+  constructor(pos: Vector) {
     super({
-      pos: vec(150, 150),
+      pos,
       width: 25,
       height: 25,
       color: new Color(255, 255, 255),

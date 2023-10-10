@@ -1,7 +1,7 @@
-import { DisplayMode, Engine, Loader } from "excalibur";
+import { DisplayMode, Engine, Vector } from "excalibur";
 
 import { Player } from "./actors/player/player";
-import { Resources } from "./resources";
+import { loader, Resources } from "./resources";
 import { LevelOne } from "./scenes/level-one/level-one";
 
 /**
@@ -18,8 +18,8 @@ class Game extends Engine {
   public start() {
     // Create new scene with a player
     this.levelOne = new LevelOne();
-    this.player = new Player();
-    this.levelOne.add(this.player);
+    // this.player = new Player();
+    // this.levelOne.add(this.player);
 
     game.add("levelOne", this.levelOne);
     // Resources.scene1Map.convertPath = (tmxLocation, relativePath) => {
@@ -30,11 +30,11 @@ class Game extends Engine {
     //   }
     // };
     // Automatically load all default resources
-    const loader = new Loader(Object.values(Resources));
+    // const loader = new Loader(Object.values(Resources));
     // Resources.Map.ti
     loader.suppressPlayButton = true;
 
-    game.currentScene.camera.zoom = 2;
+    // game.currentScene.camera.zoom = 2;
 
     return super.start(loader);
   }
@@ -59,6 +59,22 @@ game.start().then(() => {
   // game.currentScene.camera.zoom = 2;
   game.goToScene("levelOne");
   // const map = Resources.Map.getTileMap();
+
+  console.log("Resources: ", Resources);
+  const objects = Resources.Map.data.getObjectLayerByName("objects");
+  const camera = objects.getObjectByName("Camera");
+  if (camera) {
+    game.currentScene.camera.pos = new Vector(camera.x, camera.y);
+    game.currentScene.camera.zoom =
+      camera.getProperty<number>("zoom")?.value ?? 1.0;
+  }
+  const player = objects.getObjectByName("Player");
+  if (player) {
+    const playerActor = new Player(new Vector(player.x, player.y));
+    game.currentScene.add(playerActor);
+    playerActor.z = 100;
+  }
+
   // game.add(map);
   Resources.Map.addTiledMapToScene(game.currentScene);
 });
