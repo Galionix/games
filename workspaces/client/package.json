@@ -28,6 +28,7 @@
     "webpack-merge": "5.9.0"
   },
   "dependencies": {
+    "@excaliburjs/dev-tools": "^0.28.0",
     "@excaliburjs/plugin-tiled": "^0.28.0",
     "excalibur": "0.28.1",
     "peerjs": "^1.5.1",

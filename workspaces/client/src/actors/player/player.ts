@@ -1,4 +1,10 @@
-import { Actor, Color, Engine, Vector } from "excalibur";
+import {
+  Actor,
+  Color,
+  ElasticToActorStrategy,
+  Engine,
+  Vector,
+} from "excalibur";
 
 import { DirectionQueue } from "../../classes/DirectionQueue";
 import { EDirection } from "../../constants";
@@ -24,12 +30,18 @@ export class Player extends Actor {
   facing = EDirection.down;
   onInitialize(engine: Engine) {
     this.graphics.use(Resources.Sword.toSprite());
+    console.log("this: ", this.center);
+    const cameraStrategy = new ElasticToActorStrategy(this, 0.2, 0.1);
+    // console.log("playerActor: ", playerActor.center);
+    // game.levelOne.camera.addStrategy(cameraStrategy);
     // inputController({ engine, player: this });
+    engine.currentScene.camera.addStrategy(cameraStrategy);
   }
   // public update: Actor["update"] = (engine, delta) => {
   //   // inputController({ engine, player: this, delta });
   // };
   public onPreUpdate: Actor["onPreUpdate"] = (engine, delta) => {
+    // console.log("engine: ", engine);
     onPreUpdateMovement(engine, delta, this);
   };
 }
