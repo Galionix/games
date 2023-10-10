@@ -65,6 +65,8 @@ game.start().then(() => {
 
   console.log("Resources: ", Resources);
   const objects = Resources.Map.data.getObjectLayerByName("objects");
+  const colliders = Resources.Map.getCollidersForGid(32);
+  console.log("colliders: ", colliders);
   const camera = objects.getObjectByName("Camera");
   if (camera) {
     game.currentScene.camera.pos = new Vector(camera.x, camera.y);

@@ -1,5 +1,6 @@
 import {
   Actor,
+  CollisionType,
   Color,
   ElasticToActorStrategy,
   Engine,
@@ -19,9 +20,10 @@ export class Player extends Actor {
   constructor(pos: Vector) {
     super({
       pos,
-      width: 25,
-      height: 25,
+      width: 32,
+      height: 32,
       color: new Color(255, 255, 255),
+      collisionType: CollisionType.Active,
     });
     this.directionQueue = new DirectionQueue();
   }
