@@ -10,9 +10,7 @@ export class LevelOne extends Scene {
   constructor() {
     super();
   }
-  public onInitialize(engine: Engine) {
-    // this.camera.strategy.elasticToActor(this.player, 0.2, 0.1);
-  }
+  public onInitialize(engine: Engine) {}
   public onActivate() {}
   public onDeactivate() {}
 }

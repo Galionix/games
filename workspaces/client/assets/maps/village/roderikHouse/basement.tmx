@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="3">
+ <tileset firstgid="1" source="../../general.tsj"/>
+ <layer id="1" name="floor" width="50" height="50">
+  <data encoding="base64" compression="zstd">
+   KLUv/WAQJmUDAGhMAAAASwAAACQAAAAjYqjwNdbwlc0S+P//n18A/6WrXe1LV/tqX7ra1772pb92ta/d0teu3peu9qUvXe2vfe1LX7va17ulr13tS1f7S1+62te+9tW+drWv3dLX3tqXrvbl9KUVgUyTvR1kCg==
+  </data>
+ </layer>
+ <objectgroup id="2" name="objects">
+  <properties>
+   <property name="excalibur" value="true"/>
+  </properties>
+  <object id="1" name="player" type="Player" x="812.03" y="751.88">
+   <point/>
+  </object>
+  <object id="2" name="camera" type="Camera" x="721.805" y="771.018">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
