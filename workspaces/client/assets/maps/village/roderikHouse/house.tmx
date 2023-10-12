@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="5">
  <tileset firstgid="1" source="../../general.tsj"/>
  <layer id="1" name="floor" width="50" height="50">
   <data encoding="base64" compression="zstd">
-   KLUv/WAQJmUDAGhMAAAASwAAACQAAAAjYqjwNdbwlc0S+P//n18A/6WrXe1LV/tqX7ra1772pb92ta/d0teu3peu9qUvXe2vfe1LX7va17ulr13tS1f7S1+62te+9tW+drWv3dLX3tqXrvbl9KUVgUyTvR1kCg==
+   KLUv/WAQJhUEALhMAAAASwAAACQAAAAjxwAAAMjvAAAA8GKo8DXW4JVlDBL4fwmB/80RvgOlr13pSnft6772Zbf2tS/9Qlf60peO0tV97Wtn7Wtf+oWu9KUvnaKr+9rXztrXvvSLTulL/61TTWsPkMHq+mLBGnrVV/va177u1l7tq+pL1wBbk70ddgo=
+  </data>
+ </layer>
+ <objectgroup id="3" name="objects">
+  <object id="1" name="portal" type="BoxCollider" x="768" y="316" width="64" height="64">
+   <properties>
+    <property name="destination" value="VillageRoderikHouseBasement"/>
+    <property name="entry" value="1"/>
+    <property name="excalibur" value="true"/>
+   </properties>
+  </object>
+  <object id="2" name="player" type="Player" x="814" y="782">
+   <point/>
+  </object>
+  <object id="3" name="entry" type="Entry" x="800" y="454">
+   <properties>
+    <property name="id" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="4" name="camera" type="Camera" x="822" y="790">
+   <point/>
+  </object>
+ </objectgroup>
+ <layer id="2" name="walls" width="50" height="50">
+  <properties>
+   <property name="Solid" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zstd">
+   KLUv/WAQJt0BAFgAJQAAACZNAAAAThOgsJcHIIOx1Dil/w1t0uKkTdox+uJ0T5oC1ohJBe1ARgBz1lEdyBHH+Ez6+U8L
   </data>
  </layer>
 </map>

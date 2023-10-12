@@ -30,25 +30,32 @@
             "scaleInEditor": 1
         },
         "village/roderikHouse/assets/maps/tileset.tsj": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 1
         },
         "village/roderikHouse/basement.tmx": {
-            "scale": 0.36574999999999996,
-            "selectedLayer": 0,
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1.5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 795.6254272043748,
-                "y": 814.764183185236
+                "x": 463.66666666666663,
+                "y": 892.3333333333333
             }
         },
         "village/roderikHouse/basement.tmx#tileset": {
             "scaleInDock": 1
         },
         "village/roderikHouse/house.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
             "scale": 0.5,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": -14,
-                "y": -14
+                "x": 799,
+                "y": 765
             }
         },
         "village/roderikHouse/house.tmx#tileset": {

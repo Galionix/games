@@ -2,16 +2,15 @@ import { ImageFiltering, ImageSource, Loader } from 'excalibur';
 
 import { TiledMapResource } from '@excaliburjs/plugin-tiled';
 
-import { pathsPlainObject } from '../assets/maps';
+import { pathsPlainObject } from '../assets/maps/maps';
 
 // collect maps from folders
 
-console.log("pathsPlainObject: ", pathsPlainObject);
-
 const maps = Object.entries(pathsPlainObject).reduce(
   (acc, [key, value]) => {
-    acc[key] = new TiledMapResource(value);
-    acc[key].convertPath = function (originPath, relativePath) {
+    const resource = new TiledMapResource(value);
+    console.log("resource: ", resource);
+    resource.convertPath = function (originPath, relativePath) {
       // convert images for tileset paths
       if (relativePath.includes("tileset.")) {
         const filename = relativePath.split("/").pop();
@@ -22,15 +21,16 @@ const maps = Object.entries(pathsPlainObject).reduce(
         const filename = relativePath.split("/").pop();
         return "./assets/maps/" + filename;
       }
-      console.log("relativePath: ", relativePath);
-      console.log("originPath: ", originPath);
+
       return relativePath;
     };
+    acc[key] = resource;
+
     return acc;
   },
   {} as Record<keyof typeof pathsPlainObject, TiledMapResource>,
 );
-console.log("maps: ", maps);
+
 /**
  * Default global resource dictionary. This gets loaded immediately
  * and holds available assets for the game.
