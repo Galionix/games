@@ -14,5 +14,13 @@
     "start:dev:server": "yarn workspace @bounty-rpg/server start:dev",
     "start:prod:client": "yarn workspace @bounty-rpg/client start:prod",
     "start:prod:server": "yarn workspace @bounty-rpg/server start:prod"
+  },
+  "packageManager": "yarn@3.6.4",
+  "devDependencies": {
+    "@types/webpack": "^5.28.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@nestjs/typeorm": "^10.0.0"
   }
 }

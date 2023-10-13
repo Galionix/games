@@ -11,10 +11,19 @@
 //   }
 // }
 {
+
+  "references": [
+    {
+       "path": "../shared"
+    }
+  ],
   "compilerOptions": {
-    "target": "es6",
+    "target": "esnext",
     "module": "commonjs",
     "sourceMap": true,
-    "outDir": "./dist/"
+    "outDir": "./dist/",
+    "composite": true,
+    "skipLibCheck": true,
   }
+
 }

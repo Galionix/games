@@ -1,4 +1,7 @@
-{
+{ "exclude": [
+   "wirkspaces/**/tests/**",
+   "wirkspaces/**/dist/**"
+],
  "references": [
   {
      "path": "./workspaces/shared"
@@ -9,5 +12,11 @@
   {
      "path": "./workspaces/server"
   }
-]
+],
+"compilerOptions": {
+   "target": "ES5",
+   "module": "esnext",
+   "skipLibCheck": true,
+   "esModuleInterop": false
+}
 }

@@ -30,7 +30,9 @@
   "dependencies": {
     "@excaliburjs/dev-tools": "^0.28.0",
     "@excaliburjs/plugin-tiled": "^0.28.0",
+    "axios": "^1.5.1",
     "excalibur": "0.28.1",
+    "firebase": "^10.5.0",
     "peerjs": "^1.5.1",
     "raw-loader": "^4.0.2"
   }

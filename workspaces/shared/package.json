@@ -1,5 +1,6 @@
 {
   "name": "@bounty-rpg/shared",
+  "packageManager": "yarn@3.6.4",
   "version": "1.0.0",
-  "license": "MIT"
+  "main": "main.ts"
 }

@@ -17,7 +17,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { User } from '../users/entities/user.entity';
+import { User } from '../users/entities/User.entity';
+// import { User } from '../users/entities/user.entity';
+import { UsersModule } from '../users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -79,7 +81,7 @@ import { AppService } from './app.service';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // UsersModule,
+    UsersModule,
     // AuthModule,
   ],
   controllers: [AppController],

@@ -3,11 +3,16 @@ import { DisplayMode, Engine, Vector } from 'excalibur';
 // import { DevTool } from '@excaliburjs/dev-tools';
 import { EMapsEnum, pathsNullValues, pathsPlainObject, TMapNames } from '../assets/maps/maps';
 import { Player } from './actors/player/player';
+import { Authorization } from './classes/Authorization';
 import { loader, Resources } from './resources';
 import { Level } from './scenes/generalMap';
 
 const initialLevelName = EMapsEnum.VillageRoderikHouseBasement;
 const initialEntryId = "1";
+
+const auth = new Authorization();
+
+// const user = auth.getCurrentUser();
 
 /**
  * Managed game class
@@ -53,10 +58,6 @@ class Game extends Engine {
 
 const game = new Game();
 
-game.start().then(() => {
-  loadLevel(initialLevelName, initialEntryId);
-});
-
 game.on("initialize", () => {});
 
 game.showDebug(true);
@@ -84,3 +85,11 @@ export function loadLevel(name: TMapNames, entryId: string) {
   }
   Resources[name].addTiledMapToScene(game.currentScene);
 }
+
+// if (!user) {
+  auth.signIn(() => {
+    game.start().then(() => {
+      loadLevel(initialLevelName, initialEntryId);
+    });
+  });
+// }
