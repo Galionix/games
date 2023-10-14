@@ -9,7 +9,7 @@ import { pathsPlainObject } from '../assets/maps/maps';
 const maps = Object.entries(pathsPlainObject).reduce(
   (acc, [key, value]) => {
     const resource = new TiledMapResource(value);
-    console.log("resource: ", resource);
+
     resource.convertPath = function (originPath, relativePath) {
       // convert images for tileset paths
       if (relativePath.includes("tileset.")) {
@@ -37,6 +37,7 @@ const maps = Object.entries(pathsPlainObject).reduce(
  */
 export const Resources = {
   Sword: new ImageSource("../img/sword.png", false, ImageFiltering.Pixel),
+  chest: new ImageSource("../img/chest2.png", false, ImageFiltering.Pixel),
   // Map: maps.VillageRoderikHouseBasement,
   // Map: new TiledMapResource("../assets/maps/map1/tilemap.tmx"),
   ...maps,

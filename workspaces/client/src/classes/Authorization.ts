@@ -1,8 +1,42 @@
 import { Auth, GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
 
+import { EMapsEnum } from '../../assets/maps/maps';
 import { login } from '../api';
 import { auth } from '../firebase';
 
+export type TTEMPORARYUserData = {
+  inventory: {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    // image: string;
+  }[];
+
+  player: {
+    experience: number;
+    name: string;
+    character: string;
+    level: number;
+    hp: number;
+    mana: number;
+  };
+  stats: {
+    strength: number;
+    dexterity: number;
+    constitution: number;
+    intelligence: number;
+    wisdom: number;
+    charisma: number;
+  };
+  location: {
+    x: number;
+    y: number;
+    map: EMapsEnum;
+    entry: string;
+  };
+};
 type TStoredUserData = {
   uid: string;
   name: string;
@@ -30,28 +64,30 @@ export class Authorization {
 
   loginUser = async (uid: string) => {
     const res = await login(uid);
-    console.log("logging res: ", res);
-    return res.data;
+    return res;
   };
 
   // sign in with popup
-  async signIn(cb: (result: TStoredUserData) => void) {
-    console.log("this.user: ", this.user);
+  async signIn(
+    cb: (result: TStoredUserData, loginData: TTEMPORARYUserData) => void,
+  ) {
     if (this.user.uid) {
-      await this.loginUser(this.user.uid);
-      cb(this.user);
+      const loginData = await this.loginUser(this.user.uid);
+
+      cb(this.user, loginData);
       return;
     }
     const result_1 = await this.signInWithPopup(this.auth, this.provider);
 
-    await this.loginUser(result_1.user?.uid as string);
+    const loginData = await this.loginUser(result_1.user?.uid as string);
+
     this.user = {
       uid: result_1.user?.uid as string,
       name: result_1.user?.displayName as string,
     };
     this.storeUserInLocalStorage();
     // this.uid = result_1.user?.uid;
-    cb(this.user);
+    cb(this.user, loginData);
   }
 
   // sign out

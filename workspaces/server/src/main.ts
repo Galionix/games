@@ -1,3 +1,7 @@
+// import { ExpressPeerServer } from 'peer';
+
+import { PeerServer } from 'peer';
+
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
@@ -18,6 +22,11 @@ async function bootstrap() {
   const config = app.get(ConfigService);
 
   const port = config.get<number>("API_PORT");
+  const server = app.getHttpServer();
+  // const peerServer = ExpressPeerServer(server, {
+  //   path: "/myapp",
+  // });
+
   await app.listen(port, () => {
     Logger.log(
       `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
@@ -26,3 +35,27 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+// const { PeerServer } = require("peer");
+
+const PORT = 9010;
+
+const peerServer = PeerServer({
+  port: PORT,
+  key: "demodemo",
+  path: "/myapp",
+  allow_discovery: true,
+});
+
+peerServer.on("connection", (c) => {
+  // @ts-ignore
+  console.log("connection ID:", c.id);
+});
+
+// peerServer.on("disconnect", (c) => {
+//   // @ts-ignore
+
+//   console.log("disconnect!", c.id);
+// });
+
+console.log(`Running Peer JS Server on port ${PORT}.`);

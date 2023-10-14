@@ -4,6 +4,7 @@ export const paths = [
   // @index('./**/*.tmx', (f,_) => `'${f.path.replace(/.\//, '')}',`)
   "village/roderikHouse/basement",
   "village/roderikHouse/house",
+  "village/villageCenter",
   // @endindex
 ];
 
@@ -11,6 +12,7 @@ export enum EMapsEnum {
   // @index('./**/*.tmx', (f,_) => `"${_.pascalCase(f.path.replace(/.\//, ' ').replace(/\//, ' '))}"= "${_.pascalCase(f.path.replace(/.\//, ' ').replace(/\//, ' '))}",`)
   "VillageRoderikHouseBasement" = "VillageRoderikHouseBasement",
   "VillageRoderikHouseHouse" = "VillageRoderikHouseHouse",
+  "VillageVillageCenter" = "VillageVillageCenter",
   // @endindex
 }
 export const pathsPlainObject = {
@@ -18,6 +20,7 @@ export const pathsPlainObject = {
   VillageRoderikHouseBasement:
     prefix + "village/roderikHouse/basement" + ".tmx",
   VillageRoderikHouseHouse: prefix + "village/roderikHouse/house" + ".tmx",
+  VillageVillageCenter: prefix + "village/villageCenter" + ".tmx",
   // @endindex
 } as const;
 
@@ -25,6 +28,7 @@ export const pathsNullValues = {
   // @index('./**/*.tmx', (f,_) => `${_.pascalCase(f.path.replace(/.\//, ' ').replace(/\//, ' '))}: null,`)
   VillageRoderikHouseBasement: null,
   VillageRoderikHouseHouse: null,
+  VillageVillageCenter: null,
   // @endindex
 } as const;
 

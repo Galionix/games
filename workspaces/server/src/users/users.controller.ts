@@ -42,4 +42,19 @@ export class UsersController {
     // console.log("removeUserDto: ", removeUserDto);
     return this.usersService.remove(removeUserDto.uid);
   }
+  // set user location
+  @Post("setLocation")
+  setLocation(
+    @Body()
+    setLocationDto: {
+      uid: string;
+      location: string;
+      entry: string;
+      x: number;
+      y: number;
+    },
+  ) {
+    // console.log("setLocationDto: ", setLocationDto);
+    return this.usersService.setLocation(setLocationDto);
+  }
 }

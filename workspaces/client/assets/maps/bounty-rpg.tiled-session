@@ -37,11 +37,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 1.5,
-            "selectedLayer": 1,
+            "scale": 0.75,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 463.66666666666663,
-                "y": 892.3333333333333
+                "x": 1133.3333333333335,
+                "y": 698.6666666666667
             }
         },
         "village/roderikHouse/basement.tmx#tileset": {
@@ -54,8 +54,8 @@
             "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 799,
-                "y": 765
+                "x": 796,
+                "y": 762
             }
         },
         "village/roderikHouse/house.tmx#tileset": {
@@ -66,14 +66,26 @@
         },
         "village/tileset.tsj": {
             "scaleInDock": 1
+        },
+        "village/villageCenter.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 2158.6666666666665,
+                "y": 2302.6666666666665
+            }
         }
     },
     "last.imagePath": "P:/projects/monos/games/workspaces/client/assets",
+    "last.objectTemplatePath": "P:/projects/monos/games/workspaces/client/assets/maps/templates",
     "map.fixedSize": true,
-    "map.height": 50,
+    "map.height": 150,
     "map.lastUsedFormat": "tmx",
     "map.layerDataFormat": null,
-    "map.width": 50,
+    "map.width": 150,
     "openFiles": [
         "village/roderikHouse/basement.tmx",
         "village/roderikHouse/house.tmx"

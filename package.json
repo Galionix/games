@@ -17,10 +17,13 @@
   },
   "packageManager": "yarn@3.6.4",
   "devDependencies": {
+    "@types/uuid": "^9.0.5",
     "@types/webpack": "^5.28.3",
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@nestjs/typeorm": "^10.0.0"
+    "@nestjs/typeorm": "^10.0.0",
+    "peer": "^1.0.1",
+    "uuid": "^9.0.1"
   }
 }

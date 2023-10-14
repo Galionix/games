@@ -74,4 +74,25 @@ export class UsersService {
     await this.userRepository.save(newUser);
     return newUser;
   }
+
+  async setLocation(setLocationDto: {
+    uid: string;
+    location: string;
+    entry: string;
+    x: number;
+    y: number;
+  }) {
+    const user = await this.findOne(setLocationDto.uid);
+    if (!user) {
+      return "no user found";
+    }
+    user.location = {
+      map: setLocationDto.location,
+      entry: setLocationDto.entry,
+      x: setLocationDto.x,
+      y: setLocationDto.y,
+    };
+    await this.userRepository.save(user);
+    return user;
+  }
 }

@@ -23,6 +23,8 @@ import { UsersModule } from '../users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+// import { PeerServerService } from './peer.service';
+
 // import { AuthModule } from './auth/auth.module';
 // import { PostEntity } from './entities/post.entity';
 // import { PostModule } from './entities/post/post.module';
@@ -85,6 +87,10 @@ import { AppService } from './app.service';
     // AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+
+    // PeerServerService
+  ],
 })
 export class AppModule {}
