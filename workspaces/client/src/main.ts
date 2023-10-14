@@ -8,6 +8,7 @@ import { Chest } from './classes/Chest';
 import { ENetworkEvent } from './classes/events/network';
 import { NetworkActorsMap } from './classes/network/NetworkActorsMap';
 import { NetworkClient } from './classes/network/NetworkClient';
+import { onWindowUnload } from './onUnload';
 import { loader, Resources } from './resources';
 import { Level } from './scenes/generalMap';
 
@@ -67,7 +68,21 @@ game.on("initialize", (e) => {});
 // game.showDebug(true);
 // const devtool = new DevTool(game);
 
-export function loadLevel(name: TMapNames, entryId: string) {
+export function loadLevel({
+  name,
+  entryId,
+  x,
+  y,
+}: {
+  name: TMapNames;
+  entryId: string;
+  x?: number;
+  y?: number;
+}) {
+  console.log({
+    x,
+    y,
+  });
   game.currentScene?.clear();
   game.goToScene(name);
   const objects = Resources[name].data.getObjectLayerByName("objects");
@@ -87,18 +102,35 @@ export function loadLevel(name: TMapNames, entryId: string) {
     .filter((e) => e.getProperty("id")?.value == entryId)[0];
 
   if (camera) {
-    game.currentScene.camera.pos = new Vector(camera.x, camera.y);
+    if (x && y) {
+      game.currentScene.camera.pos = new Vector(x, y);
+    } else {
+      game.currentScene.camera.pos = new Vector(camera.x, camera.y);
+    }
     game.currentScene.camera.zoom =
       camera.getProperty<number>("zoom")?.value ?? 1.0;
   }
   const player = objects.getObjectByName("Player");
+  // if (x && y && player) {
+  //   const playerActor = new Player({
+  //     pos: new Vector(x, y),
+  //     mapName: name,
+  //   });
+  //   game.currentScene.add(playerActor);
+  //   playerActor.z = 100;
+  // }
+
   if (player) {
+    const vector = new Vector(x || entry.x, y || entry.y);
     const playerActor = new Player({
-      pos: new Vector(entry.x, entry.y),
+      pos: vector,
       mapName: name,
     });
     game.currentScene.add(playerActor);
     playerActor.z = 100;
+    onWindowUnload({
+      player: playerActor,
+    });
   }
   Resources[name].addTiledMapToScene(game.currentScene);
 
@@ -113,9 +145,14 @@ export function loadLevel(name: TMapNames, entryId: string) {
 
 // if (!user) {
 currentAuth.signIn((st, loginData) => {
-  const { map, entry } = loginData.location;
+  const { map, entry, x, y } = loginData.location;
   game.start().then(() => {
-    loadLevel(map, entry);
+    loadLevel({
+      name: map,
+      entryId: entry,
+      x,
+      y,
+    });
   });
 });
 // }

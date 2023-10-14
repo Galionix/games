@@ -12,6 +12,7 @@ import { NetworkUpdater } from '../../classes/network/NetworkUpdater';
 import { EDirection } from '../../constants';
 import { onPreUpdateMovement } from '../../input/moving.controller';
 import { loadLevel } from '../../main';
+import { SyncServer } from '../../onUnload';
 import { Resources } from '../../resources';
 import { getTiledObjectPropertyValues } from '../../utils/tileUtils';
 
@@ -33,7 +34,7 @@ export class Player extends Actor {
   }
   directionQueue: DirectionQueue;
   speed = 260;
-  private readonly mapName: TMapNames;
+  readonly mapName: TMapNames;
 
   engine: Engine;
   facing = EDirection.down;
@@ -62,6 +63,16 @@ export class Player extends Actor {
 
     // update actors on initial load
     this.engine.emit(ENetworkEvent.SYNC_LATEST_NETWORK_STATE);
+
+    new SyncServer(this).start();
+    // setInterval(() => {
+    //   setLocation({
+    //     x: this.pos.x,
+    //     y: this.pos.y,
+    //     location: this.mapName,
+    //     entry: "",
+    //   });
+    // }, 1000);
   }
   createNetworkUpdateString(): TUpdateString {
     // const actionType = this.actionAnimation?.type ?? "NULL";
@@ -87,7 +98,10 @@ export class Player extends Actor {
         entry,
       });
       // this.mapName = destination;
-      loadLevel(destination, entry);
+      loadLevel({
+        name: destination,
+        entryId: entry,
+      });
     }
     if (evt.other instanceof Chest) {
       console.log("chest: ", evt.other);
