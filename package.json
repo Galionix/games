@@ -10,8 +10,11 @@
     ]
   },
   "scripts": {
+    "start": "yarn workspace @bounty-rpg/server start:prod",
     "start:dev:client": "yarn workspace @bounty-rpg/client start",
     "start:dev:server": "yarn workspace @bounty-rpg/server start:dev",
+    "build:client": "yarn workspace @bounty-rpg/client build:prod",
+    "build:server": "yarn workspace @bounty-rpg/server build",
     "start:prod:client": "yarn workspace @bounty-rpg/client start:prod",
     "start:prod:server": "yarn workspace @bounty-rpg/server start:prod"
   },
@@ -19,6 +22,7 @@
   "devDependencies": {
     "@types/uuid": "^9.0.5",
     "@types/webpack": "^5.28.3",
+    "serve": "^14.2.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {

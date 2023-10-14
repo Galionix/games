@@ -2,3 +2,4 @@ node_modules
 workspaces/client/dist/
 .yarn/
 redis-data/dump.rdb
+.env

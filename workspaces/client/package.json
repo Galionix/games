@@ -6,9 +6,11 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open",
+    "start:prod": "webpack serve --mode production",
     "build": "webpack",
     "build:prod": "webpack --mode production",
-    "build:dev": "webpack --mode development"
+    "build:dev": "webpack --mode development",
+    "serve": "serve dist"
   },
   "author": "Excalibur.js Team",
   "license": "BSD-2-Clause",

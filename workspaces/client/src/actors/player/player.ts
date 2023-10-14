@@ -32,7 +32,7 @@ export class Player extends Actor {
     this.on("collisionstart", (evt) => this.onCollisionStart(evt));
   }
   directionQueue: DirectionQueue;
-  speed = 160;
+  speed = 260;
   private readonly mapName: TMapNames;
 
   engine: Engine;

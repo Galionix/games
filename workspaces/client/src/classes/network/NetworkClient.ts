@@ -48,6 +48,36 @@ export class NetworkClient {
     this.init();
   }
 
+  interactWithConnection(conn: DataConnection) {
+    conn.on("open", () => {
+      this.connectionMap.set(conn.peer, conn);
+      this.engine.emit(ENetworkEvent.EVENT_INITIAL_DATA_REQUESTED);
+    });
+
+    // // Know when it's closed
+    conn.on("close", () => {
+      this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_LEAVE, conn.peer);
+    });
+    conn.on("error", () => {
+      this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_LEAVE, conn.peer);
+    });
+
+    // Subscribe to this new player's updates (TODO - REFACTOR - watch out, there are two of these  blocks. it got me)
+    conn.on("data", (data: TUpdateString) => {
+      this.latestConnectionStateMap.set(conn.peer, data);
+      // // Handle Player update
+      this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_UPDATE, {
+        id: conn.peer,
+        data,
+      });
+    });
+
+    // Close the connection if I leave
+    window.addEventListener("unload", () => {
+      conn.close();
+    });
+  }
+
   async init() {
     this.peer = new Peer(
       this.peerId,
@@ -69,45 +99,11 @@ export class NetworkClient {
       // console.log("conn: ", conn);
       // A new player has joined and connected to me
       // console.log("A new player has joined and connected to me: ");
-      conn.on("open", () => {
-        this.connectionMap.set(conn.peer, conn);
-        this.engine.emit(ENetworkEvent.EVENT_INITIAL_DATA_REQUESTED);
-      });
-
-      // // Know when it's closed
-      conn.on("close", () => {
-        this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_LEAVE, conn.peer);
-      });
-      conn.on("error", () => {
-        this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_LEAVE, conn.peer);
-      });
-
-      // Subscribe to this new player's updates (TODO - REFACTOR - watch out, there are two of these  blocks. it got me)
-      conn.on("data", (data: TUpdateString) => {
-        this.latestConnectionStateMap.set(conn.peer, data);
-        // console.log("data: ", data);
-        // Handle MOBLIN prefix
-        // if (data.startsWith("MOBLIN")) {
-        //   this.engine.emit(EVENT_NETWORK_MOBLIN_UPDATE, data);
-        //   return;
-        // }
-
-        // // Handle Player update
-        this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_UPDATE, {
-          id: conn.peer,
-          data,
-        });
-      });
-
-      // Close the connection if I leave
-      window.addEventListener("unload", () => {
-        conn.close();
-      });
+      this.interactWithConnection(conn);
     });
 
     // Make all outgoing connections
     const otherPeerIds = await this.getAllPeerIds();
-    console.log("otherPeerIds: ", otherPeerIds);
 
     await timeout(1000);
 
@@ -120,51 +116,41 @@ export class NetworkClient {
       if (!conn) {
         continue;
       }
+      this.interactWithConnection(conn);
+      // // Register to each player I know about
+      // conn.on("open", () => {
+      //   this.connectionMap.set(id, conn);
+      // });
 
-      // Register to each player I know about
-      conn.on("open", () => {
-        this.connectionMap.set(id, conn);
-      });
+      // // // Know when it's closed
+      // conn.on("close", () => {
+      //   this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_LEAVE, conn.peer);
+      // });
+      // conn.on("error", () => {
+      //   this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_LEAVE, conn.peer);
+      // });
 
-      // // Know when it's closed
-      conn.on("close", () => {
-        this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_LEAVE, conn.peer);
-      });
-      conn.on("error", () => {
-        this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_LEAVE, conn.peer);
-      });
+      // // Subscribe to their updates
+      // conn.on("data", (data: TUpdateString) => {
+      //   this.latestConnectionStateMap.set(conn.peer, data);
+      //   //   // Handle PLAYER prefix
+      //   this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_UPDATE, {
+      //     id: conn.peer,
+      //     data,
+      //   });
+      // });
 
-      // Subscribe to their updates
-      conn.on("data", (data: TUpdateString) => {
-        this.latestConnectionStateMap.set(conn.peer, data);
-        console.log("data: ", data);
-        //   // Handle MOBLIN prefix
-        //   if (data.startsWith("MOBLIN")) {
-        //     this.engine.emit(EVENT_NETWORK_MOBLIN_UPDATE, data);
-        //     return;
-        //   }
-
-        //   // Handle PLAYER prefix
-        this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_UPDATE, {
-          id: conn.peer,
-          data,
-        });
-      });
-
-      // Close the connection if I leave
-      window.addEventListener("unload", () => {
-        conn.close();
-      });
+      // // Close the connection if I leave
+      // window.addEventListener("unload", () => {
+      //   conn.close();
+      // });
 
       await timeout(200);
     }
 
     this.engine.on(ENetworkEvent.SYNC_LATEST_NETWORK_STATE, () => {
-      console.log("SYNC_LATEST_NETWORK_STATE: ");
       this.latestConnectionStateMap.forEach((conn, key) => {
-        console.log("key: ", key);
         const latestConnectionState = this.latestConnectionStateMap.get(key);
-        console.log("latestConnectionState: ", latestConnectionState);
         if (latestConnectionState) {
           this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_UPDATE, {
             id: key,

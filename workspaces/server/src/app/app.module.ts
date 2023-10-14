@@ -81,6 +81,7 @@ import { AppService } from './app.service';
 
     // PostModule,
     ConfigModule.forRoot({
+      envFilePath: "../../.env",
       isGlobal: true,
     }),
     UsersModule,

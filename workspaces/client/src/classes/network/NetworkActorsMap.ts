@@ -23,7 +23,6 @@ export class NetworkActorsMap {
     this.engine.on(
       ENetworkEvent.EVENT_NETWORK_PLAYER_UPDATE,
       (otherPlayer: any) => {
-        console.log("otherPlayer: ", otherPlayer);
         this.onUpdatedPlayer(otherPlayer.id, otherPlayer.data);
       },
     );

@@ -23,7 +23,6 @@ export class NetworkPlayer extends Actor {
   }
 
   onStateUpdate(newUpdate) {
-    console.log("newUpdate: ", newUpdate);
     // if (newUpdate.actionType === SWORDACTION && !this.actionAnimation) {
     //   this.playerActions?.actionSwingSword();
     // }
