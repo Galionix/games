@@ -47,8 +47,6 @@ export class Player extends Actor {
     this.cameraStrategy = new ElasticToActorStrategy(this, 0.2, 0.1);
     engine.currentScene.camera.addStrategy(this.cameraStrategy);
 
-    this.engine.emit(ENetworkEvent.SYNC_LATEST_NETWORK_STATE, event);
-
     engine.on(ENetworkEvent.EVENT_INITIAL_DATA_REQUESTED, () => {
       engine.emit(
         ENetworkEvent.EVENT_SEND_PLAYER_UPDATE,

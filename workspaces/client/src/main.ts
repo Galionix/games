@@ -62,14 +62,6 @@ class Game extends Engine {
 
 const game = new Game();
 
-new NetworkActorsMap(game);
-const client = new NetworkClient(game);
-// console.log("client: ", client);
-// When one of my nodes updates, send it to all peers
-game.on(ENetworkEvent.EVENT_SEND_PLAYER_UPDATE, (update) => {
-  client.sendUpdate(update);
-});
-
 game.on("initialize", (e) => {});
 //
 // game.showDebug(true);
@@ -109,6 +101,14 @@ export function loadLevel(name: TMapNames, entryId: string) {
     playerActor.z = 100;
   }
   Resources[name].addTiledMapToScene(game.currentScene);
+
+  new NetworkActorsMap(game);
+  const client = new NetworkClient(game);
+  // console.log("client: ", client);
+  // When one of my nodes updates, send it to all peers
+  game.on(ENetworkEvent.EVENT_SEND_PLAYER_UPDATE, (update) => {
+    client.sendUpdate(update);
+  });
 }
 
 // if (!user) {
