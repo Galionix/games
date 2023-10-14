@@ -61,10 +61,7 @@ export class Player extends Actor {
     this.networkUpdater.sendStateUpdate(this.createNetworkUpdateString());
 
     // update actors on initial load
-    // this.engine.emit(ENetworkEvent.EVENT_NETWORK_PLAYER_UPDATE, {
-    //   id: conn.peer,
-    //   data,
-    // });
+    this.engine.emit(ENetworkEvent.SYNC_LATEST_NETWORK_STATE);
   }
   createNetworkUpdateString(): TUpdateString {
     // const actionType = this.actionAnimation?.type ?? "NULL";

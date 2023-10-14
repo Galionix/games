@@ -160,6 +160,7 @@ export class NetworkClient {
     }
 
     this.engine.on(ENetworkEvent.SYNC_LATEST_NETWORK_STATE, () => {
+      console.log("SYNC_LATEST_NETWORK_STATE: ");
       this.latestConnectionStateMap.forEach((conn, key) => {
         console.log("key: ", key);
         const latestConnectionState = this.latestConnectionStateMap.get(key);
